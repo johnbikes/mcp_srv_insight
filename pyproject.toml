@@ -1,0 +1,10 @@
+[project]
+name = "mcp-srv-insight"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "insightface>=0.7.3",
+    "onnxruntime>=1.22.0",
+]
