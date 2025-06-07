@@ -1,3 +1,12 @@
+"""
+@Author: John T
+@LinkedIn: www.linkedin.com/in/john-tavolacci
+@Github: https://github.com/johnbikes/
+@Date: 2025-06-07
+@Description: A set of functions with a global InisghtFace FaceAnalysis instance for comparing faces from two URLs.
+@License: Apache License 2.0
+"""
+
 import urllib
 import logging
 

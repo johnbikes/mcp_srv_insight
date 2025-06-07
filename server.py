@@ -1,3 +1,12 @@
+"""
+@Author: John T
+@LinkedIn: www.linkedin.com/in/john-tavolacci
+@Github: https://github.com/johnbikes/
+@Date: 2025-06-07
+@Description: A basic MCP server for comparing faces from two URLs using InsightFace.
+@License: Apache License 2.0
+"""
+
 from mcp.server.fastmcp import FastMCP
 from same_from_urls import is_same
 
