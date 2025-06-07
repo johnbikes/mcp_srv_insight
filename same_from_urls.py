@@ -7,6 +7,9 @@ import insightface
 from insightface.app import FaceAnalysis
 from insightface.data import get_image as ins_get_image
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 providers = ['CUDAExecutionProvider', 'CPUExecutionProvider']
 app = FaceAnalysis(providers=providers, allowed_modules=['detection', 'recognition'])
 app.prepare(ctx_id=0, det_size=(640, 640))
@@ -58,9 +61,6 @@ def main():
     logger.info(f"Is same: {is_same(url1, url2)}")
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
-    logger = logging.getLogger(__name__)
-    
     # diff
     url1 = 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Lionel_Messi_20180626.jpg'
     url2 = 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg'

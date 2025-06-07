@@ -28,6 +28,24 @@ async def main():
             result = await Runner.run(agent, request)
         print(result.final_output)
 
+    print("-" * 100)
+
+    instructions = "You are able to manage questions containing two URLs to determine if they contain the same face according to insightface."
+    url1 = 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Lionel_Messi_20180626.jpg'
+    url2 = 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg'
+    request = f"""
+    My name is John and I have two URLs and would like to determine if they contain the same face according to insightface. 
+    The first url is {url1} and the second url is: {url2}.
+    I would also like to know more about the inviduals present in the images.
+    """
+    model = "gpt-4.1-mini"
+
+    async with MCPServerStdio(params=params, client_session_timeout_seconds=30) as mcp_server:
+        agent = Agent(name="face_manager", instructions=instructions, model=model, mcp_servers=[mcp_server])
+        with trace("face_manager_w_info"):
+            result = await Runner.run(agent, request)
+        print(result.final_output)
+
 if __name__ == "__main__":
     load_dotenv(override=True)
     PRINT_TOOLS = True
