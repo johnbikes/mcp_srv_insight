@@ -58,12 +58,14 @@ if __name__ == "__main__":
     logger = logging.getLogger(__name__)
 
     providers = ['CUDAExecutionProvider', 'CPUExecutionProvider']
-    app = FaceAnalysis(providers=providers)
+    app = FaceAnalysis(providers=providers, allowed_modules=['detection', 'recognition'])
     app.prepare(ctx_id=0, det_size=(640, 640))
     
+    # diff
     url1 = 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Lionel_Messi_20180626.jpg'
     url2 = 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg'
     main()
 
+    # change to same
     url2 = 'https://upload.wikimedia.org/wikipedia/commons/2/26/Leo_messi_barce_2005.jpg'
     main()
