@@ -7,6 +7,10 @@ import insightface
 from insightface.app import FaceAnalysis
 from insightface.data import get_image as ins_get_image
 
+providers = ['CUDAExecutionProvider', 'CPUExecutionProvider']
+app = FaceAnalysis(providers=providers, allowed_modules=['detection', 'recognition'])
+app.prepare(ctx_id=0, det_size=(640, 640))
+
 def grab_from_url(url):
     """
     Downloads and decodes an image from a URL into a numpy array.
@@ -21,7 +25,6 @@ def grab_from_url(url):
     req = urllib.request.urlopen(url)
     arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
     img = cv2.imdecode(arr, -1) # 'Load it as it is'
-    # cv2.imwrite('tmp.jpg', img)
     return img
 
 def get_feats(url):
@@ -42,6 +45,7 @@ def get_feats(url):
     return faces[0].normed_embedding
 
 def is_same(url1, url2):
+    logger.info(f"Checking is_same for {url1 = }, {url2 = }")
     feats1 = get_feats(url1)
     feats2 = get_feats(url2)
     if feats1 is None or feats2 is None:
@@ -56,10 +60,6 @@ def main():
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
-
-    providers = ['CUDAExecutionProvider', 'CPUExecutionProvider']
-    app = FaceAnalysis(providers=providers, allowed_modules=['detection', 'recognition'])
-    app.prepare(ctx_id=0, det_size=(640, 640))
     
     # diff
     url1 = 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Lionel_Messi_20180626.jpg'

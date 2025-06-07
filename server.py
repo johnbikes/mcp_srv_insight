@@ -5,7 +5,7 @@ mcp = FastMCP("insight_server")
 
 @mcp.tool()
 async def get_is_same(url1: str, url2: str) -> bool:
-    """Compare two URLs to determine if they containt the same face according to insightface.
+    """Compare two URLs to determine if they containW the same face according to insightface.
     
     Args:
         url1 (str): First URL to compare
