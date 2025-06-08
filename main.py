@@ -22,6 +22,8 @@ async def main():
 
         print(mcp_tools)
 
+    print("\n" + "-" * 100 + "\n")
+
     instructions = "You are able to manage questions containing two URLs to determine if they contain the same face according to insightface."
     url1 = 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Lionel_Messi_20180626.jpg'
     url2 = 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg'
@@ -37,7 +39,7 @@ async def main():
             result = await Runner.run(agent, request)
         print(result.final_output)
 
-    print("-" * 100)
+    print("\n" + "-" * 100 + "\n")
 
     request = f"""
     My name is John and I have two URLs and would like to determine if they contain the same face according to insightface. 
