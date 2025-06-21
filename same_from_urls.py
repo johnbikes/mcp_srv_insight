@@ -49,25 +49,39 @@ def get_feats(url):
     Returns:
         numpy.ndarray: Normalized face embedding vector if a face is detected, None otherwise
     """
-    img = grab_from_url(url)
-    faces = app.get(img)
-    if len(faces) < 1:
-        logger.warning(f"No face detected in {url}")
+    try:
+        img = grab_from_url(url)
+        faces = app.get(img)
+        if len(faces) < 1:
+            logger.warning(f"No face detected in {url}")
+            return None
+        return faces[0].normed_embedding
+    except Exception as e:
+        logger.error(f"Error getting features from {url}: {e}")
         return None
-    return faces[0].normed_embedding
 
 def is_same(url1, url2):
     logger.info(f"Checking is_same for {url1 = }, {url2 = }")
     feats1 = get_feats(url1)
     feats2 = get_feats(url2)
-    if feats1 is None or feats2 is None:
+    
+    resp = [False, None, None]
+    if feats1 is not None:
+       resp[1] = (url1, feats1)
+    if feats2 is not None:
+        resp[2] = (url2, feats2)
+    
+    if None in resp:
         logger.warning(f"No face detected in {url1} or {url2}. Not comparing features")
-        return False
-    return np.dot(feats1, feats2) > 0.5
+    else:
+        # actually do the comparison now
+        resp[0] = np.dot(feats1, feats2) >= 0.5
+
+    return resp
 
 def main():
     logger.info(f"Comparing {url1} and {url2}")
-    logger.info(f"Is same: {is_same(url1, url2)}")
+    logger.info(f"Is same: {is_same(url1, url2)[0]}")
 
 if __name__ == "__main__":
     # diff
@@ -77,4 +91,9 @@ if __name__ == "__main__":
 
     # change to same
     url2 = 'https://upload.wikimedia.org/wikipedia/commons/2/26/Leo_messi_barce_2005.jpg'
+    main()
+
+    # neymar
+    url1 = 'https://live.staticflickr.com/8778/17145642931_56ea3a6113_b.jpg'
+    url2 = 'https://live.staticflickr.com/8778/17145642931_56ea3a6113_b.jpg'
     main()
