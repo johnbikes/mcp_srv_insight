@@ -31,3 +31,17 @@ Both are iconic figures in the world of football and are often compared for thei
 ```
 
 ![Trace](resources/trace_w_info.jpg)
+
+### Using lifepsan support for determining if a face has been seen before according to InsightFace
+- Messi against Messi and Ronaldo
+```bash
+INFO:same_from_urls:Checking is_same for url1 = 'https://upload.wikimedia.org/wikipedia/commons/2/26/Leo_messi_barce_2005.jpg', url2 = None
+INFO:__main__:Searched 1 URLs and found result = {'ids': [['id_0', 'id_1']], 'embeddings': None, 'documents': [['https://upload.wikimedia.org/wikipedia/commons/c/c1/Lionel_Messi_20180626.jpg', 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg']], 'uris': None, 'included': ['metadatas', 'documents', 'distances'], 'data': None, 'metadatas': [[None, None]], 'distances': [[0.47270458936691284, 1.1545511484146118]]}
+INFO:mcp.server.lowlevel.server:Processing request of type ListToolsRequest
+The face in the URL you provided has been seen before according to insightface. A similar face was found in this URL: https://upload.wikimedia.org/wikipedia/commons/c/c1/Lionel_Messi_20180626.jpg.
+```
+- Neymar against Messi and Ronaldo
+```bash
+INFO:same_from_urls:Checking is_same for url1 = 'https://live.staticflickr.com/8778/17145642931_56ea3a6113_b.jpg', url2 = None
+The face in the URL you provided has not been seen before according to insightface. If you have any other URLs or questions, feel free to ask!
+```
